@@ -52,7 +52,7 @@ export default function Login() {
         <span>
           Não possui conta?
         </span>
-        <a href={'/cadastro'}>
+        <a href='/TipoCadastro'>
           Crie sua conta.
         </a>
       </div>
