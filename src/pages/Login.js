@@ -3,6 +3,9 @@ import './auth.css'
 
 import Input from '../components/Input'
 import api from '../api';
+import logo from '../assets/logo.svg'
+
+import {Link} from 'react-router-dom'
 
 export default function Login() {
   const [login, setLogin] = useState("")
@@ -27,9 +30,11 @@ export default function Login() {
   return (
     <>
     <div className='container'>
+
      
       <div className='auth-container'>
-      <h3 className='title'>Login</h3>
+      <img src={logo}></img>
+      <h3 className='title'>Acesse sua conta</h3>
       
       <Input
         label="Email"
@@ -52,8 +57,16 @@ export default function Login() {
         <span>
           Não possui conta?
         </span>
-        <a href='/TipoCadastro'>
+        <Link to='/cadastro-cliente'>
           Crie sua conta.
+        </Link>
+      </div>
+      <div className='create'>
+        <span>
+           Gostaria de se tonar um parceiro?
+        </span>
+        <a href='/TipoCadastro'>
+          Cadastre-se agora!
         </a>
       </div>
       </div>
