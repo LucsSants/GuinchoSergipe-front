@@ -38,7 +38,7 @@ export default function Login() {
      
       <div className='auth-container'>
       <img src={logo}></img>
-      <h3 className='title'>Crie sua conta</h3>
+      <h3 className='title'>Torne-se Parceiro</h3>
       
       <Input
         label="Email"
@@ -62,8 +62,8 @@ export default function Login() {
         onChange={(e)=> {setPassowrdConfirmation(e.target.value)}}
         />
         <Input
-        label="CPF"
-        placeholder='CPF' 
+        label="CPF/CPNJ"
+        placeholder='CPF/CPNJ' 
         value={cpf}
         onChange={(e)=> {setCpf(e.target.value)}}
         />
@@ -86,10 +86,10 @@ export default function Login() {
       </div>
       <div className='create'>
         <span>
-           Gostaria de se tonar um parceiro?
+           Gostaria de se tonar um cliente?
         </span>
-        <Link to="/cadastro-parceiro">
-          Cadastre-se agora!
+        <Link to="/cadastro-cliente">
+        Crie sua conta.
         </Link>
       </div>
       </div>

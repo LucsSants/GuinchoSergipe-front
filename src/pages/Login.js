@@ -65,9 +65,9 @@ export default function Login() {
         <span>
            Gostaria de se tonar um parceiro?
         </span>
-        <a href='/TipoCadastro'>
-          Cadastre-se agora!
-        </a>
+        <Link to="/cadastro-parceiro">
+        Cadastre-se agora!
+          </Link>
       </div>
       </div>
     </div>
