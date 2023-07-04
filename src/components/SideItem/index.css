@@ -1,0 +1,29 @@
+.side-item {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 80%;
+  gap: 20px;
+  height: 4rem;
+  border-radius: 1rem;
+  cursor: pointer;
+}
+
+.side-item:hover{
+  background: #CACACA;
+}
+
+.side-item p {
+  font-size: 24px;
+  font-weight: 600;
+  color: #667080;
+}
+
+.side-item.active {
+  background: #CACACA;
+}
+
+.side-item.active p {
+  background: #CACACA;
+  color: #00875F;
+}
