@@ -20,5 +20,9 @@ code {
 html {
   color: black ;
   background-color: #F1F1F1;
-  
+}
+
+.page {
+  position: relative;
+  margin-left: 30%;
 }

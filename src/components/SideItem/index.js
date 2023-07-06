@@ -1,15 +1,14 @@
 import React from 'react'
 import './index.css'
-import { Truck } from '@phosphor-icons/react'
-import './index.css'
+import { Link, NavLink } from 'react-router-dom'
 
 function SideItem({title,SideIcon, active, ...rest}) {
   return (
-    <div className={`side-item ${active ? 'active' : ''}`}>
+    <NavLink {...rest} className={`side-item`} activeClassName="active">
     
     <SideIcon size={32} color={active ? "#00875F" : "#667080"}/>
     <p>{title}</p>
-  </div>
+  </NavLink>
   )
 }
  export default SideItem
