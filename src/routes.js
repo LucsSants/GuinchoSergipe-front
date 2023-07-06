@@ -11,8 +11,11 @@ export default function Routes() {
       <ReactRoutes>
         <Route path="/login" element={<Login/>}/>
         <Route path="/cadastro-cliente" element={<CadastroCliente/>}/>
-        <Route path="/cadastro-parceiro" element={<CadastroParceiro/>}/>        
-        <Route path="/home" element={<ClienteHome/>}/>        
+        <Route path="/cadastro-parceiro" element={<CadastroParceiro/>}/>
+
+
+        <Route path="/home" element={<ClienteHome/>}/>   
+
       </ReactRoutes>
     </BrowserRouter>
   );
