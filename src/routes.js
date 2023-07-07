@@ -8,6 +8,10 @@ import ParceiroHome from './pages/ParceiroHome';
 import Navbar from './components/Navbar';
 import ClienteVeiculo from './pages/ClienteVeiculo';
 import ClientePerfil from './pages/ClientePerfil';
+import NavbarP from './components/NavbarParceiro';
+import ParceiroPerfil from './pages/ParceiroPerfil';
+import ParceiroAndamento from './pages/ParceiroAndamento';
+import ParceiroFinalizada from './pages/ParceiroFinalizada';
 
 
 export default function Routes() {
@@ -18,7 +22,6 @@ export default function Routes() {
         <Route path="/cadastro-cliente" element={<CadastroCliente/>}/>
         <Route path="/cadastro-parceiro" element={<CadastroParceiro/>}/>
         <Route path="/cadastro-veiculo" element={<CadastroVeiculo/>}/>  
-        <Route path="/home-parceiro" element={<ParceiroHome/>}/>   
 
         <Route path="/" element={
         <>
@@ -28,8 +31,23 @@ export default function Routes() {
         }>
         <Route path="guinchos" element={<ClienteHome/>}/>          
         <Route path="veiculos" element={<ClienteVeiculo/>}/>          
-        <Route path="perfil" element={<ClientePerfil/>}/>          
+        <Route path="perfil" element={<ClientePerfil/>}/>      
+                 
         </Route>
+
+        <Route path="/" element={
+        <>
+          <NavbarP/>
+          <Outlet/>
+        </>
+        }>
+        <Route path="solicitacoes" element={<ParceiroHome/>}/>   
+        <Route path="andamento" element={<ParceiroAndamento/>}/> 
+        <Route path="finalizada" element={<ParceiroFinalizada/>}/>         
+        <Route path="parceiro-perfil" element={<ParceiroPerfil/>}/>     
+                 
+        </Route>
+        
         
       </ReactRoutes>
     </BrowserRouter>
