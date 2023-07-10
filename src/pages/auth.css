@@ -57,4 +57,17 @@
   text-decoration: none;
 }
 
+.footer-button{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 80%;
+  gap: 20px;
+  height: 4rem;
+  border-radius: 1rem;
+  cursor: pointer;
+  position: fixed;
+  bottom: 20px;
+  left: 25%;
+}
 

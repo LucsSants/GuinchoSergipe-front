@@ -1,10 +1,12 @@
 import React from 'react';
-
+import './auth.css'
 
 export default function ClienteVeiculo(){
     return(
       <div className='page'>
-        <p>Veículo AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA</p>
+        <div className='footer-button'>       
+        <button className='form-button' type="button">Adicionar Veículo</button>
+        </div> 
       </div>
   
     )
