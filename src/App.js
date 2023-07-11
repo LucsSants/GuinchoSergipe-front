@@ -1,10 +1,12 @@
-import Login from "./pages/Login";
 import Routes from './routes';
-
+import { AuthProvider } from './context/AuthContext';
+import { HistoryRouter } from './HistoryRouter';
 
 function App() {
   return (
-    <Routes/>
+    <AuthProvider>
+      <Routes/>
+    </AuthProvider>
   );
 }
 

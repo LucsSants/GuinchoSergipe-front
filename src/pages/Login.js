@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useContext, useState } from 'react';
 import './auth.css'
 
 import Input from '../components/Input'
@@ -6,41 +6,29 @@ import api from '../api';
 import logo from '../assets/logo.svg'
 
 import {Link} from 'react-router-dom'
+import { Context } from '../context/AuthContext';
+import { useNavigate } from 'react-router-dom';
+import { Toaster } from 'react-hot-toast';
 
 export default function Login() {
-  const [login, setLogin] = useState("")
+  const navigate = useNavigate()
+  const [email, setEmail] = useState("")
   const [password, setPassowrd] =  useState("")
-
-  async function handleLogin(){
-    await api.post('/user/login', {
-      "Email":login,
-      "Password":password,
-    }).then(async res =>{
-      console.log(res.data)
-      api.defaults.headers.Authorization = `Bearer ${res.data.token}`;
-      const {data : veiculo} = await api.get('/veiculo')
-      console.log(veiculo)
-      
-    }).catch((error) => {
-      console.log(error)
-    })
-    
-  }
+  const {authenticated, handleLogin} = useContext(Context)
 
   return (
     <>
     <div className='container'>
-
-     
+      <Toaster />
       <div className='auth-container'>
-      <img src={logo}></img>
+      <img src={logo} alt="Logo"></img>
       <h3 className='title'>Acesse sua conta</h3>
       
       <Input
         label="Email"
         placeholder='Email'  
-        value={login}
-        onChange={(e)=> {setLogin(e.target.value)}}
+        value={email}
+        onChange={(e)=> {setEmail(e.target.value)}}
         />
 
       <Input
@@ -51,7 +39,7 @@ export default function Login() {
         onChange={(e)=> {setPassowrd(e.target.value)}}
         />
       
-      <button className='form-button' type="button" onClick={handleLogin}>Entrar</button>
+      <button className='form-button' type="button" onClick={()=> {handleLogin(email,password)}}>Entrar</button>
 
       <div className='create'>
         <span>

@@ -1,4 +1,4 @@
-import { Routes as ReactRoutes , Route, BrowserRouter, Outlet} from 'react-router-dom';
+import { Routes as ReactRoutes , Route, BrowserRouter, Outlet, Navigate} from 'react-router-dom';
 import Login from './pages/Login';
 import CadastroCliente from './pages/CadastroCliente'
 import CadastroParceiro from './pages/CadastroParceiro'
@@ -12,30 +12,48 @@ import NavbarP from './components/NavbarParceiro';
 import ParceiroPerfil from './pages/ParceiroPerfil';
 import ParceiroAndamento from './pages/ParceiroAndamento';
 import ParceiroFinalizada from './pages/ParceiroFinalizada';
+import { HistoryRouter } from './HistoryRouter';
+import { useContext } from 'react';
+import { Context } from './context/AuthContext';
+
+
 
 
 export default function Routes() {
+  const { loading, authenticated } = useContext(Context);
   return (
-    <BrowserRouter >
+    <HistoryRouter>
       <ReactRoutes>
-        <Route path="/login" element={<Login/>}/>
-        <Route path="/cadastro-cliente" element={<CadastroCliente/>}/>
-        <Route path="/cadastro-parceiro" element={<CadastroParceiro/>}/>
-        <Route path="/cadastro-veiculo" element={<CadastroVeiculo/>}/>  
-
-        <Route path="/" element={
-        <>
-          <Navbar/>
-          <Outlet/>
-        </>
+      <Route path="/" element={
+          authenticated ? (
+          <Navigate to={'/guichos'}/>
+            ): <Navigate to={'/login'}/>
+        }/>
+        <Route path="" element={
+          authenticated ? (
+            <>
+            <Navbar />
+            <Outlet />
+          </>
+          ) : ''
         }>
-        <Route path="guinchos" element={<ClienteHome/>}/>          
-        <Route path="veiculos" element={<ClienteVeiculo/>}/>          
-        <Route path="perfil" element={<ClientePerfil/>}/>      
-                 
-        </Route>
+          <Route path="/login" element={!authenticated ? <Login/> : <Navigate to={'/guinchos'}/>}/>
+          <Route path="/cadastro-cliente" element={!authenticated ? <CadastroCliente/> : <Navigate to={'/guinchos'}/>}/>
+          <Route path="/cadastro-parceiro" element={!authenticated ? <CadastroParceiro/> : <Navigate to={'/guinchos'}/>}/>
+          <Route path="/cadastro-veiculo" element={!authenticated ? <CadastroVeiculo/> : <Navigate to={'/guinchos'}/>}/>  
 
-        <Route path="/" element={
+          <Route path="/guinchos" element={authenticated ? <ClienteHome/> : <Navigate to={'/login'}/>}/>          
+          <Route path="/veiculos" element={authenticated ? <ClienteVeiculo/> : <Navigate to={'/login'}/>}/>          
+          <Route path="/perfil" element={authenticated ? <ClientePerfil/> : <Navigate to={'/login'}/>}/> 
+        </Route>
+        
+             
+                 
+       
+      
+        
+        
+        <Route path="*" element={
         <>
           <NavbarP/>
           <Outlet/>
@@ -50,6 +68,6 @@ export default function Routes() {
         
         
       </ReactRoutes>
-    </BrowserRouter>
+    </HistoryRouter>
   );
 }
