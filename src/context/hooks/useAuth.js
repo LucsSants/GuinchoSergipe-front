@@ -39,23 +39,30 @@ export default function useAuth() {
     })
   }
 
-  async function handleCreate(userNome, userLogin, userSenha) {
-    await api.post('/usuario', {
-      "usuTxNome": userNome,
-      "usuTxLogin": userLogin,
-      "usuTxSenha": userSenha
-    }).then( res => {
-      if(res.data.codigo === 200) {
-        alert.success(res.data.mensagem);
-      } else {
-        alert.error(res.data.mensagem);
-      }
+  async function handleCreate(email, password, passwordConfirmation,cpf,nome) {
+      await api.post('/user/cadastro', {
+        "Email":email,
+        "Password":password,
+        "PasswordConfirmation":passwordConfirmation,
+        "Cpf":cpf,
+        "Nome":nome,
+  
+      }).then(async res =>{
+        handleLogin(email,password)
+        
+      }).catch((error) => {
+        if (error.response.data.title){
+          toast.error("Email no formato incorreto!")
+        } else {
+          const errors = error.response.data.split(",")
+          console.log(errors)
+          errors.forEach(error=> toast.error(error))
+        }
+      })
+     
+      console.log(email, password,passwordConfirmation, cpf,nome)
     }
-    ).catch((err)=> {
-      alert.error(err.response.data.errors[0].defaultMessage,);
-      
-    })
-  }
+  
  
 
   function handleLogout() {

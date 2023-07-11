@@ -1,10 +1,12 @@
-import React, { useState } from 'react';
+import React, { useContext, useState } from 'react';
 import './auth.css'
 
 import Input from '../components/Input'
 import api from '../api';
 import logo from '../assets/logo.svg'
 import { Link } from 'react-router-dom';
+import { Context } from '../context/AuthContext';
+import { Toaster } from 'react-hot-toast';
 
 export default function Login() {
   const [email, setEmail] = useState("")
@@ -12,32 +14,16 @@ export default function Login() {
   const [passwordConfirmation, setPassowrdConfirmation] =  useState("")
   const [cpf, setCpf] =  useState("")
   const [nome, setNome] =  useState("")
-
-  async function handleCreateUser(){
-    await api.post('/user/cadastro', {
-      "Email":email,
-      "Password":password,
-      "PasswordConfirmation":passwordConfirmation,
-      "Cpf":cpf,
-      "Nome":nome,
-
-    }).then(async res =>{
-      console.log(res.data)
-      
-    }).catch((error) => {
-      console.log(error)
-    })
-   
-    console.log(email, password,passwordConfirmation, cpf,nome)
-  }
+  const {handleCreate} = useContext(Context)
+ 
 
   return (
     <>
     <div className='container'>
-
+    <Toaster/>
      
       <div className='auth-container'>
-      <img src={logo}></img>
+      <img src={logo} alt="logo"></img>
       <h3 className='title'>Crie sua conta</h3>
       
       <Input
@@ -74,7 +60,7 @@ export default function Login() {
         onChange={(e)=> {setNome(e.target.value)}}
         />
       
-      <button className='form-button' type="button" onClick={handleCreateUser}>Cadastre-se</button>
+      <button className='form-button' type="button" onClick={()=>handleCreate(email,password,passwordConfirmation,cpf,nome)}>Cadastre-se</button>
 
       <div className='create'>
         <span>
