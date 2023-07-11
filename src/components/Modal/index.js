@@ -127,7 +127,7 @@ function Modal({open, onClose}) {
           />
           <div className='buttonsWrapper'>
             <button className='form-button' type="button" onClick={handleCreate}>Cadastrar Veículo</button>
-            <button className='form-button' type="button" onClick={closeModal}>Cacelar</button>
+            <button className='form-button cancel' type="button" onClick={closeModal}>Cancelar</button>
           </div>
         </div>
         }
