@@ -28,6 +28,9 @@ export default function useAuth() {
     }).then(async res => {
       console.log(res.data.token)
       localStorage.setItem('token', JSON.stringify(res.data.token));
+      const {data} = await api.get(`/user/${res.data.email}`)
+      localStorage.setItem('userId', JSON.stringify(data.id));
+      console.log(data)
       api.defaults.headers.Authorization = `Bearer ${res.data.token}`;
       setAuthenticated(true); 
       setLoading(false)
@@ -69,6 +72,7 @@ export default function useAuth() {
     api.defaults.headers.Authorization = undefined;
     setAuthenticated(false);
     localStorage.removeItem('token');
+    localStorage.removeItem('userId')
     customHistory.go(0)
   }
 

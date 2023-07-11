@@ -3,6 +3,7 @@ import './auth.css'
 
 import Input from '../components/Input'
 import api from '../api';
+import { customHistory } from '../HistoryRouter';
 
 
 
@@ -24,6 +25,7 @@ export default function CadastroVeiculo(){
   
       }).then(async res =>{
         console.log(res.data)
+        customHistory.go(0)
         
       }).catch((error) => {
         console.log(error)

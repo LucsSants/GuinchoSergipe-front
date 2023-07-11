@@ -1,39 +1,54 @@
-import React, { useEffect, useState } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import './auth.css'
 import api from '../api';
+import { toast } from 'react-hot-toast';
+import { Context } from '../context/AuthContext';
+import Modal from '../components/Modal';
+import Veiculo from '../components/Veiculo';
 
 export default function ClienteVeiculo(){
   
   const [loading, setLoading] = useState(false)
   const [veiculos, setVeiculos] = useState([])
+  const [modalStatus, setModalStatus] = useState(false)
+  const {handleLogout} = useContext(Context)
 
   useEffect( ()=>{
     (async () => {
       setLoading(true)
-      await api.get("/veiculo").then( res=> {
+      const id = JSON.parse(await localStorage.getItem('userId'))
+      await api.get(`/veiculo/user/${id}`).then( res=> {
         setVeiculos(res.data)
+      }).catch( err => {
+        toast.error("Sessão expirada!")
+        console.log(err)
       })
     })();
     setLoading(false)
   },[])
 
+  function onClose(){
+    setModalStatus(false)
+  }
     return(
+      <>
+      <Modal open={modalStatus} onClose={onClose}/>
       <div className='page'>
+
         {loading ? <div className='loading'>Loading...</div> : 
         
-          veiculos.map((item) => {
-            return(
-              <ul key={item.id}>
-              <li>Modelo:{item.modelo}, Marca: {item.marca}, Cor:{item.cor}, Ano:{item.ano}, Palca:{item.placa}</li>
-            </ul>
+        veiculos.map((item) => {
+          return(
+            <Veiculo data={item}/>
             )
           })
-
         }
         <div className='footer-button'>
-        <button className='form-button'type="button">Adicionar Veículo</button>
+        <button className='form-button'type="button" onClick={()=> setModalStatus(true)}>Adicionar Veículo</button>
         </div> 
-      </div>
+        </div>
+      
+    </>
   
     )
 }
