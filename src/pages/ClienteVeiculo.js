@@ -39,7 +39,7 @@ export default function ClienteVeiculo(){
         
         veiculos.map((item) => {
           return(
-            <Veiculo data={item}/>
+            <Veiculo key={item.id} data={item}/>
             )
           })
         }

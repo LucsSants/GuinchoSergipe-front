@@ -1,0 +1,12 @@
+.wrapper{
+  background-color: #E0E0E0;
+  width: 80%;
+  height: 8rem;
+  border-radius: 1rem;
+  padding: 1rem;
+}
+
+.rowTwo {
+  display: flex;
+  gap: 1rem;
+}

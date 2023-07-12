@@ -1,11 +1,45 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import './home.css'
+import api from '../api';
+import { toast } from 'react-hot-toast';
+import Guincho from '../components/Guincho';
 
 
 export default function ClienteHome(){
-    return(
-      <div className='page'>
-        <p>Home AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA</p>
+  const [guinchos, setGuinchos] = useState([])
+  const [loading, setLoading] = useState(false)
+  useEffect( ()=>{
+    (async () => {
+      setLoading(true)
+      await api.get(`/user/guinchos`).then( res=> {
+        console.log(res.data)
+        setGuinchos(res.data)
+      }).catch( err => {
+        toast.error("Sessão expirada!")
+        console.log(err)
+      })
+    })();
+    setLoading(false)
+  },[])
+  return(
+    <div className='page'>
+         {loading ? (
+          <div>
+            <p>Loading</p>
+          </div>
+         ) :
+          (
+            <>
+              {
+                guinchos.map(guincho => (
+                  <Guincho key={guincho.id} data={guincho}/>
+                  ))
+                }
+            
+            </>
+          )
+         }
+       
       </div>
   
     )

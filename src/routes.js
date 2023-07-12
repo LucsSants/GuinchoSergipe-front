@@ -40,7 +40,6 @@ export default function Routes() {
           <Route path="/login" element={!authenticated ? <Login/> : <Navigate to={'/guinchos'}/>}/>
           <Route path="/cadastro-cliente" element={!authenticated ? <CadastroCliente/> : <Navigate to={'/guinchos'}/>}/>
           <Route path="/cadastro-parceiro" element={!authenticated ? <CadastroParceiro/> : <Navigate to={'/guinchos'}/>}/>
-          <Route path="/cadastro-veiculo" element={!authenticated ? <CadastroVeiculo/> : <Navigate to={'/guinchos'}/>}/>  
 
           <Route path="/guinchos" element={authenticated ? <ClienteHome/> : <Navigate to={'/login'}/>}/>          
           <Route path="/veiculos" element={authenticated ? <ClienteVeiculo/> : <Navigate to={'/login'}/>}/>          
