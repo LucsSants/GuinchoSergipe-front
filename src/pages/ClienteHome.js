@@ -1,13 +1,15 @@
-import React, { useEffect, useState } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import './home.css'
 import api from '../api';
 import { toast } from 'react-hot-toast';
 import Guincho from '../components/Guincho';
+import { Context } from '../context/AuthContext';
 
 
 export default function ClienteHome(){
   const [guinchos, setGuinchos] = useState([])
   const [loading, setLoading] = useState(false)
+  const {userRole} = useContext(Context)
   useEffect( ()=>{
     (async () => {
       setLoading(true)
@@ -35,7 +37,7 @@ export default function ClienteHome(){
                   <Guincho key={guincho.id} data={guincho}/>
                   ))
                 }
-            
+              <p>{userRole}</p>
             </>
           )
          }

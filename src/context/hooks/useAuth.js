@@ -2,19 +2,23 @@ import { useState, useEffect } from 'react';
 import api from '../../api';
 import { customHistory } from '../../HistoryRouter';
 import { toast } from 'react-hot-toast';
+import jwt_decode from "jwt-decode"
 
 
 
 export default function useAuth() {
   const [authenticated, setAuthenticated] = useState(false);
   const [loading, setLoading] = useState(true);
-  const [user,setUser] = useState([])
+  const [userRole,setuserRole] = useState("")
 
   useEffect(() => {
     const token = localStorage.getItem('token');
 
     if (token) { 
       api.defaults.headers.Authorization = `Bearer ${JSON.parse(token)}`;
+      const decoded = jwt_decode(token)
+      const role = decoded['http://schemas.microsoft.com/ws/2008/06/identity/claims/role']
+      setuserRole(role);
       setAuthenticated(true);
     }
     setLoading(false);
@@ -26,12 +30,14 @@ export default function useAuth() {
       "Email":Email,
       "Password":Password
     }).then(async res => {
-      console.log(res.data.token)
+      api.defaults.headers.Authorization = `Bearer ${res.data.token}`;
+      const decoded = jwt_decode(res.data.token)
+      const role = decoded['http://schemas.microsoft.com/ws/2008/06/identity/claims/role']
+      setuserRole(role);
       localStorage.setItem('token', JSON.stringify(res.data.token));
       const {data} = await api.get(`/user/${res.data.email}`)
       localStorage.setItem('userId', JSON.stringify(data.id));
       console.log(data)
-      api.defaults.headers.Authorization = `Bearer ${res.data.token}`;
       setAuthenticated(true); 
       setLoading(false)
       customHistory.push("/guinchos")
@@ -78,5 +84,5 @@ export default function useAuth() {
 
 
   
-  return { authenticated, loading, handleLogin, handleLogout, handleCreate };
+  return { authenticated, loading, handleLogin, handleLogout, handleCreate, userRole };
 }
