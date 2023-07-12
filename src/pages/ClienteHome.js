@@ -10,6 +10,7 @@ export default function ClienteHome(){
   const [guinchos, setGuinchos] = useState([])
   const [loading, setLoading] = useState(false)
   const {userRole} = useContext(Context)
+
   useEffect( ()=>{
     (async () => {
       setLoading(true)
@@ -23,7 +24,9 @@ export default function ClienteHome(){
     })();
     setLoading(false)
   },[])
+  
   return(
+
     <div className='page'>
          {loading ? (
           <div>

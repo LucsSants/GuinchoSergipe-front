@@ -6,8 +6,7 @@ function Guincho({data,...rest}) {
     <div className='wrapper'>
         <h2>{data.nome}</h2>
         <div className='rowTwo'>
-          
-         <p>Atende esses tipos de Veículos:</p>{data.user_TiposVeiculo.map( tipo=> <p key={tipo.tipoVeiculo.id}>{tipo.tipoVeiculo.tipoNome}</p>)}
+         <p>Atende esses tipos de Veículos:</p>{data.user_TiposVeiculo.map( tipo=> <ul className='lista' key={tipo.tipoVeiculo.id}><li>{tipo.tipoVeiculo.tipoNome}</li></ul>)}
         </div>
           
     </div>

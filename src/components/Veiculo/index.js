@@ -7,7 +7,7 @@ function Veiculo({data,...rest}) {
         <h2>{data.modelo}</h2>
         <div className='rowTwo'>
           <p>Marca: {data.marca}</p>
-          <p>Placa: {data.Placa}</p>
+          <p>Placa: {data.placa}</p>
           <p>Ano: {data.ano}</p>
         </div>
         <div className='rowTwo'>

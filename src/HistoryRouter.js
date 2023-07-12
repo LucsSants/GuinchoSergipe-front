@@ -16,7 +16,6 @@ export function HistoryRouter({ basename, children }) {
   });
 
   useLayoutEffect(() => history.listen(setState), [history]);
-
   return (
     <Router
       basename={basename}

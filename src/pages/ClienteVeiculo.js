@@ -25,7 +25,7 @@ export default function ClienteVeiculo(){
       })
     })();
     setLoading(false)
-  },[])
+  },[modalStatus])
 
   function onClose(){
     setModalStatus(false)

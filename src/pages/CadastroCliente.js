@@ -6,7 +6,7 @@ import api from '../api';
 import logo from '../assets/logo.svg'
 import { Link } from 'react-router-dom';
 import { Context } from '../context/AuthContext';
-import { Toaster } from 'react-hot-toast';
+import { Toaster, toast } from 'react-hot-toast';
 
 export default function Login() {
   const [email, setEmail] = useState("")
@@ -16,7 +16,14 @@ export default function Login() {
   const [nome, setNome] =  useState("")
   const {handleCreate} = useContext(Context)
  
-
+  function Create() {
+    if (!email.trim() || !password.trim() || !passwordConfirmation.trim() || !cpf.trim() || !passwordConfirmation.trim() || !nome.trim()) {
+      return toast.error("Preencha todos os campos!"); 
+    } else {
+      
+      handleCreate(email,password,passwordConfirmation,cpf,nome)
+    }
+  }
   return (
     <>
     <div className='container'>
@@ -60,7 +67,7 @@ export default function Login() {
         onChange={(e)=> {setNome(e.target.value)}}
         />
       
-      <button className='form-button' type="button" onClick={()=>handleCreate(email,password,passwordConfirmation,cpf,nome)}>Cadastre-se</button>
+      <button className='form-button' type="button" onClick={Create}>Cadastre-se</button>
 
       <div className='create'>
         <span>

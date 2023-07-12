@@ -33,6 +33,8 @@ function Modal({open, onClose}) {
       }
       if (selectedTipo.value === 'DEFAULT') {
         return alert("Escolha o tipo de veiculo")
+      } else if (ano < 0) {
+        return alert("Ano não pode ser Negativo")
       }
       await api.post('/veiculo', {
         "Modelo":modelo,
@@ -44,7 +46,6 @@ function Modal({open, onClose}) {
         "TipoVeiculoId": selectedTipo.id
       }).then((res=> {
         alert("Cadastrado")
-        customHistory.go(0)
         closeModal()
       })).catch(err =>{
         console.log(err)
@@ -56,7 +57,8 @@ function Modal({open, onClose}) {
     useEffect(() => {
       (async () => {
         setLoading(true)
-        await api.get("/tipoveiculo").then( res=> {
+        await api.get("/tipoveiculo")
+          .then( res=> {
           setTipos(res.data)
           setLoading(false)
         }).catch( err => {
@@ -121,6 +123,8 @@ function Modal({open, onClose}) {
           />
           <Input
           label="Ano"
+          type="number"
+          min="0"
           placeholder='Ano' 
           value={ano}
           onChange={(e)=> {setAno(e.target.value)}}

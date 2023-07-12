@@ -3,7 +3,6 @@ import Login from './pages/Login';
 import CadastroCliente from './pages/CadastroCliente'
 import CadastroParceiro from './pages/CadastroParceiro'
 import ClienteHome from './pages/ClienteHome';
-import CadastroVeiculo from './pages/CadastroVeiculo'
 import ParceiroHome from './pages/ParceiroHome';
 import Navbar from './components/Navbar';
 import ClienteVeiculo from './pages/ClienteVeiculo';
@@ -15,58 +14,67 @@ import ParceiroFinalizada from './pages/ParceiroFinalizada';
 import { HistoryRouter } from './HistoryRouter';
 import { useContext } from 'react';
 import { Context } from './context/AuthContext';
+import customHistory from './history';
 
 
 
 
 export default function Routes() {
-  const { loading, authenticated } = useContext(Context);
+  const { loading, authenticated, userRole} = useContext(Context);
   return (
-    <HistoryRouter>
+    <HistoryRouter history={customHistory}>
       <ReactRoutes>
-      <Route path="/" element={
-          authenticated ? (
-          <Navigate to={'/guichos'}/>
-            ): <Navigate to={'/login'}/>
-        }/>
-        <Route path="" element={
-          authenticated ? (
-            <>
-            <Navbar />
-            <Outlet />
-          </>
-          ) : ''
-        }>
-          <Route path="/login" element={!authenticated ? <Login/> : <Navigate to={'/guinchos'}/>}/>
-          <Route path="/cadastro-cliente" element={!authenticated ? <CadastroCliente/> : <Navigate to={'/guinchos'}/>}/>
-          <Route path="/cadastro-parceiro" element={!authenticated ? <CadastroParceiro/> : <Navigate to={'/guinchos'}/>}/>
+    {authenticated ? 
 
-          <Route path="/guinchos" element={authenticated ? <ClienteHome/> : <Navigate to={'/login'}/>}/>          
-          <Route path="/veiculos" element={authenticated ? <ClienteVeiculo/> : <Navigate to={'/login'}/>}/>          
-          <Route path="/perfil" element={authenticated ? <ClientePerfil/> : <Navigate to={'/login'}/>}/> 
+    userRole === "CLIENTE" ? (
+      <>
+        <Route path="/" element={<Navigate to={'/guichos'}/>}/>
+          <Route path="" element={
+             <>
+              <Navbar />
+              <Outlet />
+            </>  
+          }>
+            <Route path="" element={<Navigate to={'/guinchos'}/>}/>
+            <Route path="*" element={<Navigate to={'/guinchos'}/>}/>   
+  
+            <Route path="/guinchos" element={<ClienteHome/>}/>          
+            <Route path="/veiculos" element={<ClienteVeiculo/>}/>          
+            <Route path="/perfil" element={<ClientePerfil/>}/> 
+          </Route>
+      </>
+    ) : 
+      <>
+      <Route path="/" element={
+            <Navigate to={'/solicitacoes'}/>}/>
+          <Route path="" element={
+              <>
+              <NavbarP />
+              <Outlet />
+            </>
+          }>
+
+          <Route path="" element={<Navigate to={'/solicitacoes'}/>}/>
+          <Route path="*" element={<Navigate to={'/solicitacoes'}/>}/>
+
+          <Route path="solicitacoes" element={<ParceiroHome/>}/>   
+          <Route path="andamento" element={<ParceiroAndamento/>} /> 
+          <Route path="finalizada" element={<ParceiroFinalizada/>}/>         
+          <Route path="parceiro-perfil" element={<ClientePerfil/>}/>     
+
         </Route>
-        
-             
-                 
-       
-      
-        
-        
-        <Route path="*" element={
-        <>
-          <NavbarP/>
-          <Outlet/>
-        </>
-        }>
-        <Route path="solicitacoes" element={<ParceiroHome/>}/>   
-        <Route path="andamento" element={<ParceiroAndamento/>}/> 
-        <Route path="finalizada" element={<ParceiroFinalizada/>}/>         
-        <Route path="parceiro-perfil" element={<ParceiroPerfil/>}/>     
-                 
-        </Route>
-        
-        
-      </ReactRoutes>
+      </>
+
+    : 
+      <>
+        <Route path="" element={<Navigate to={'/login'}/>}/>
+        <Route path="*" element={<Navigate to={'/login'}/>}/>
+        <Route path="/login" element={<Login/>}/>
+        <Route path="/cadastro-cliente" element={<CadastroCliente/>}/>
+        <Route path="/cadastro-parceiro" element={<CadastroParceiro/>}/>
+      </>
+    }
+      </ReactRoutes>        
     </HistoryRouter>
   );
 }

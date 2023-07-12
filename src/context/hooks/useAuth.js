@@ -35,12 +35,16 @@ export default function useAuth() {
       const role = decoded['http://schemas.microsoft.com/ws/2008/06/identity/claims/role']
       setuserRole(role);
       localStorage.setItem('token', JSON.stringify(res.data.token));
-      const {data} = await api.get(`/user/${res.data.email}`)
+      const {data} = await api.get(`/user/email/${res.data.email}`)
       localStorage.setItem('userId', JSON.stringify(data.id));
       console.log(data)
       setAuthenticated(true); 
       setLoading(false)
-      customHistory.push("/guinchos")
+      if(role === "CLIENTE") {
+        customHistory.push("/guinchos")
+      } else {
+        customHistory.push("/solicitacoes")
+      }
     }).catch((error) => {
       console.log(error)
       setLoading(false)

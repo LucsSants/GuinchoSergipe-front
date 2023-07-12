@@ -10,3 +10,7 @@
   display: flex;
   gap: 1rem;
 }
+
+.lista {
+  margin-left: 1rem;
+}
