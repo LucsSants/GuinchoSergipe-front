@@ -1,9 +1,12 @@
-.wrapper{
+.wrapper-guincho{
   background-color: #E0E0E0;
   width: 80%;
   height: 8rem;
   border-radius: 1rem;
-  padding: 1rem;
+  padding: 2rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
 }
 
 .rowTwo {
@@ -13,4 +16,22 @@
 
 .lista {
   margin-left: 1rem;
+}
+
+.bttn-guincho {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: none;
+  background-color: #00875F;
+  cursor: pointer;
+  padding: 1rem;
+  border-radius: .4rem;
+  color: white;
+  font-size: medium ;
+  font-weight: bold;
+}
+
+.bttn-guincho:hover {
+  opacity: 0.8;
 }

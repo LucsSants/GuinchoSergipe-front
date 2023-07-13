@@ -13,7 +13,6 @@ function Veiculo({data,...rest}) {
         <div className='rowTwo'>
           <p>Cor: {data.cor}</p>
           <p>Tipo: {data.tipoVeiculo.tipoNome}</p>
-          
         </div>
           
     </div>

@@ -10,6 +10,7 @@ export default function useAuth() {
   const [authenticated, setAuthenticated] = useState(false);
   const [loading, setLoading] = useState(true);
   const [userRole,setuserRole] = useState("")
+  const [reloadIt, setReload] = useState(false);
 
   useEffect(() => {
     const token = localStorage.getItem('token');
@@ -86,7 +87,11 @@ export default function useAuth() {
     customHistory.go(0)
   }
 
+  function Reload() {
+    setReload(!reloadIt)
+  }
+
 
   
-  return { authenticated, loading, handleLogin, handleLogout, handleCreate, userRole };
+  return { authenticated, loading, handleLogin, handleLogout, handleCreate, userRole, Reload, reloadIt };
 }

@@ -18,6 +18,7 @@ function Navbar({ ...rest}) {
         <SideItem title="Guinchos" SideIcon={Truck} to="guinchos"/>
         <SideItem title="Veículos" SideIcon={CarProfile} to="veiculos"/>
         <SideItem title="Perfil" SideIcon={UserCircle} to="perfil"/>
+        <SideItem title="Pedidos" SideIcon={UserCircle} to="pedidos"/>
       </div>
         <div className='side-footer'>
           <button className='side-item' onClick={handleLogout}>

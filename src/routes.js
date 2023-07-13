@@ -15,6 +15,7 @@ import { HistoryRouter } from './HistoryRouter';
 import { useContext } from 'react';
 import { Context } from './context/AuthContext';
 import customHistory from './history';
+import Pedidos from './pages/Pedidos';
 
 
 
@@ -41,6 +42,7 @@ export default function Routes() {
             <Route path="/guinchos" element={<ClienteHome/>}/>          
             <Route path="/veiculos" element={<ClienteVeiculo/>}/>          
             <Route path="/perfil" element={<ClientePerfil/>}/> 
+            <Route path="pedidos" element={<Pedidos/>}/>     
           </Route>
       </>
     ) : 
