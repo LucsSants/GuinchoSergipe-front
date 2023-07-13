@@ -7,6 +7,7 @@ import logo from '../assets/logo.svg'
 import { Link } from 'react-router-dom';
 import { Toaster, toast } from 'react-hot-toast';
 import { Context } from '../context/AuthContext';
+import { cpfMask } from '../utils/cpfMask ';
 
 export default function Login() {
   const [email, setEmail] = useState("")
@@ -32,7 +33,6 @@ export default function Login() {
     )   
     
   }
-  console.log(tiposId)
 
   useEffect( ()=>{
     (async () => {
@@ -66,8 +66,9 @@ export default function Login() {
       handleLogin(email,password)
       
     }).catch((error) => {
+      
       if (error.response.data.title){
-        toast.error("Email no formato incorreto!")
+        toast.error("Email no formato incorreto Ou Senhas não coincidem")
       } else {
         const errors = error.response.data.split(",")
         console.log(errors)
@@ -110,10 +111,10 @@ export default function Login() {
         onChange={(e)=> {setPassowrdConfirmation(e.target.value)}}
         />
         <Input
-        label="CPF/CPNJ"
-        placeholder='CPF/CPNJ' 
+        label="CPF"
+        placeholder='CPF' 
         value={cpf}
-        onChange={(e)=> {setCpf(e.target.value)}}
+        onChange={(e)=> {setCpf(cpfMask(e.target.value))}}
         />
         <Input
         label="Nome"

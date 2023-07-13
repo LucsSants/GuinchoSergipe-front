@@ -1,5 +1,5 @@
 import React, { useContext } from 'react'
-import './index.css'
+
 import SideItem from '../SideItem'
 import {SignOut, Truck, UserCircle } from '@phosphor-icons/react'
 import bigLogo from '../../assets/bigLogo.svg'

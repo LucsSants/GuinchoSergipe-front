@@ -1,18 +1,16 @@
-import React, { useContext, useEffect, useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import './index.css'
 import Input from '../Input'
 import api from '../../api'
 import { toast } from 'react-hot-toast'
-import { Context } from '../../context/AuthContext'
 import { customHistory } from '../../HistoryRouter'
+import { PlusCircle } from '@phosphor-icons/react'
 
 function ModalGuincho({open, onClose, guinchoId,lat,long}) {
   
   const [descricao, setDescricao] = useState("")
-    const [tipos, setTipos] = useState([])
     const [selectedTipo, setSelectedTipo] = useState({value:'DEFAULT'})
     const [veiculos, setVeiculos] = useState([])
-    const {reloadIt} = useContext(Context)
 
     const [loading,setLoading] = useState(false)
     function closeModal(){
@@ -85,14 +83,19 @@ function ModalGuincho({open, onClose, guinchoId,lat,long}) {
           />
         <div>
 
+        <label>Selecione seu carro</label>
         <div className='select-wrap'>
-        <label>{guinchoId}</label>
+
+          
           <select className='select' value={selectedTipo.value} onChange={handleTipoChange}>
           <option value="DEFAULT" disabled hidden>Selecione...</option>
             {veiculos.map((vei) => (
               <option key={vei.id} value={JSON.stringify(vei.id)}>{vei.modelo}, Placa:{vei.placa}</option>
               ))}
           </select>
+          <button><PlusCircle/></button>
+        
+          
       </div>
     </div>
           <div className='buttonsWrapper'>

@@ -1,7 +1,7 @@
 import React, { useContext, useEffect, useState } from 'react';
 import './home.css'
 import api from '../api';
-import { toast } from 'react-hot-toast';
+import { Toaster, toast } from 'react-hot-toast';
 import Guincho from '../components/Guincho';
 import { Context } from '../context/AuthContext';
 import Modal from '../components/Modal';
@@ -13,7 +13,7 @@ export default function ClienteHome(){
   const [loading, setLoading] = useState(false)
   const [lat, setLat] = useState("")
   const [long, setLong] = useState("")
-  const {userRole} = useContext(Context)
+  const {userRole, handleLogout} = useContext(Context)
   const [guinchoId, setGuinchoId] = useState("")
   const [permissionStatus, setPermissionStatus] = useState("")
 
@@ -22,15 +22,17 @@ export default function ClienteHome(){
     setModalStatus(false)
   }
 
+
+
   useEffect( ()=>{
     (async () => {
       setLoading(true)
       await api.get(`/user/guinchos`).then( res=> {
-        console.log(res.data)
         setGuinchos(res.data)
       }).catch( err => {
         toast.error("Sessão expirada!")
         console.log(err)
+        handleLogout()
       })
       navigator.permissions.query({ name: 'geolocation' })
       .then(res => {
@@ -64,6 +66,7 @@ export default function ClienteHome(){
   
   return(
     <>
+    <Toaster/>
       <ModalGuincho open={modalStatus} onClose={onClose} guinchoId={guinchoId} lat={lat} long={long}/>
     <div className='page'>
 

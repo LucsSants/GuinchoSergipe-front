@@ -4,6 +4,7 @@ import api from '../../api'
 import { toast } from 'react-hot-toast'
 import { Context } from '../../context/AuthContext'
 import {TailSpin} from 'react-loader-spinner'
+import { customHistory } from '../../HistoryRouter'
 
 function Solicitacao({data, onRefuse,...rest}) {
   const [loading, setLoading] = useState(false)
@@ -30,6 +31,7 @@ function Solicitacao({data, onRefuse,...rest}) {
     await api.put(`/solicitacao/${data.id}/status/${2}`).then( res=> {
       console.log("CU")
       Reload()
+      customHistory.push("/andamento")
     }).catch( err => {
       toast.error("Pedido sem resposta!")
         console.log(err)

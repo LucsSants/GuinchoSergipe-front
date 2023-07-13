@@ -1,12 +1,8 @@
-import React, { useContext, useEffect, useState } from 'react'
+import React from 'react'
 import './index.css'
-import { Context } from '../../context/AuthContext'
-import Modal from '../Modal'
-import { toast } from 'react-hot-toast'
-import api from '../../api'
+
 
 function Guincho({data, openModal, ...rest}) {
-  const [modalStatus, setModalStatus] = useState(false)
 
   return (
     <div className='wrapper-guincho'>

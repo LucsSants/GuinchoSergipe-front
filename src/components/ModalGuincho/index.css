@@ -12,7 +12,7 @@
 .modalContainer{
   background-color: #E0E0E0;
   height: 80%;
-  width: 40%;
+  width: 80%;
   display: flex;
   align-items: center;
   border-radius: 1rem;
@@ -47,8 +47,9 @@
 
 .select-wrap {
   display: flex;
-  flex-direction: column;
+  flex-direction: row;
   width: 100%;
+  gap: 2rem;
 }
 
 .select-wrap label {
@@ -58,3 +59,7 @@
   width: 100%;
 }
 
+.wrapp {
+  display: flex;
+  flex-direction: column;
+}

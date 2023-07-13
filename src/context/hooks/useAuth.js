@@ -65,7 +65,10 @@ export default function useAuth() {
         handleLogin(email,password)
         
       }).catch((error) => {
+        console.log(error.data)
+        console.log(error.message)
         if (error.response.data.title){
+          console.log("aqui")
           toast.error("Email no formato incorreto!")
         } else {
           const errors = error.response.data.split(",")

@@ -7,6 +7,7 @@ import logo from '../assets/logo.svg'
 import { Link } from 'react-router-dom';
 import { Context } from '../context/AuthContext';
 import { Toaster, toast } from 'react-hot-toast';
+import { cpfMask } from '../utils/cpfMask ';
 
 export default function Login() {
   const [email, setEmail] = useState("")
@@ -58,7 +59,7 @@ export default function Login() {
         label="CPF"
         placeholder='CPF' 
         value={cpf}
-        onChange={(e)=> {setCpf(e.target.value)}}
+        onChange={(e)=> {setCpf(cpfMask(e.target.value))}}
         />
         <Input
         label="Nome"

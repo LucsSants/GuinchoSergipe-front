@@ -24,7 +24,8 @@
 
 .form-button {
   background-color: #00875F;
-  width: 15rem;
+ 
+  width: 12em;
   height: 3.5rem;
   border-radius: 1rem;
   font-size: large;
@@ -37,15 +38,6 @@
 
 .form-button.cancel {
   background-color: red;
-  width: 15rem;
-  height: 3.5rem;
-  border-radius: 1rem;
-  font-size: large;
-  font-weight: bold;
-  color: #fff;
-  cursor: pointer;
-  transition: ease .3s;
-  border: none;
 }
 
 .form-button:hover {
