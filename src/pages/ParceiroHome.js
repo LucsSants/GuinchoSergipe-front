@@ -8,7 +8,7 @@ import { Context } from '../context/AuthContext';
 export default function ParceiroHome(){
   const [solicitacoes, setSolicitacoes] = useState([])
   const [loading, setLoading] = useState(false)
-  const {reloadIt} = useContext(Context)
+  const {reloadIt, Reload} = useContext(Context)
 
 
   useEffect( ()=>{
@@ -24,6 +24,10 @@ export default function ParceiroHome(){
         console.log(err)
       })
     })();
+    const interval = setInterval(() => {
+      Reload()
+    }, 10000);
+    setLoading(false)
     setLoading(false)
   },[reloadIt])
   console.log()

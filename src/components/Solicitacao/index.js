@@ -17,8 +17,9 @@ function Solicitacao({data, onRefuse,...rest}) {
         Reload()
         setLoading(false)
       }).catch( err => {
-        toast.error("Sessão expirada!")
+        toast.error("Pedido sem resposta!")
         console.log(err)
+        Reload()
         setLoading(false)
       })
   }
@@ -30,8 +31,9 @@ function Solicitacao({data, onRefuse,...rest}) {
       console.log("CU")
       Reload()
     }).catch( err => {
-      toast.error("Sessão expirada!")
-      console.log(err)
+      toast.error("Pedido sem resposta!")
+        console.log(err)
+        Reload()
     })
 }
 

@@ -4,48 +4,55 @@ import { toast } from 'react-hot-toast';
 import api from '../api';
 import Solicitacao from '../components/Solicitacao';
 import { Context } from '../context/AuthContext';
+import { useQuery } from 'react-query';
+
 
 export default function Pedidos(){
   const [pedidosFinalizados, setPedidosFinalizados] = useState([])
   const [pedidosAndamento, setPedidosAndamento] = useState([])
   const [pedidosPendentes, setPedidosPendentes] = useState([])
+  const [previousAttribute, setPreviousAttribute] = useState([])
+  const [currentAttribute, setcurrentAttribute] = useState()
   const [loading, setLoading] = useState(false)
-  const {reloadIt} = useContext(Context)
+  const {reloadIt,Reload} = useContext(Context)
+  const [attemptCount, setAttemptCount] = useState(0);
+  const maxAttempts = 6; // Número máximo de tentativas
 
   useEffect( ()=>{
     (async () => {
+      const id = JSON.parse(localStorage.getItem('userId'))
       setLoading(true)
-      console.log("caralho")
-      const id = JSON.parse(await localStorage.getItem('userId'))
       await api.get(`/solicitacao/solicitacoesC/fin/${id}`).then( res=> {
         setPedidosFinalizados(res.data)
-        console.log(res.data)
+        console.log("a")
+      }).catch( err => {
+        toast.error("Sessão expirada!")
+        
+      })
+      await api.get(`/solicitacao/solicitacoesC/${id}/2`).then( res=> {
+        setPedidosAndamento(res.data)
       }).catch( err => {
         toast.error("Sessão expirada!")
         console.log(err)
       })
       await api.get(`/solicitacao/solicitacoesC/${id}/1`).then( res=> {
         setPedidosPendentes(res.data)
-        console.log(res.data)
       }).catch( err => {
         toast.error("Sessão expirada!")
         console.log(err)
       })
-      await api.get(`/solicitacao/solicitacoesC/${id}/2`).then( res=> {
-        setPedidosAndamento(res.data)
-        console.log(res.data)
-      }).catch( err => {
-        toast.error("Sessão expirada!")
-        console.log(err)
-      })
-    })();
+    })()
+    const interval = setInterval(() => {
+      Reload()
+    }, 10000);
     setLoading(false)
-  },[reloadIt])
+    return () => clearInterval(interval);
+    },[reloadIt])
 
+    
 
-  
-  console.log()
     return(
+
       <div className='page'>
       {loading ? <p>Loading</p>
       :
